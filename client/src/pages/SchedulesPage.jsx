@@ -46,6 +46,16 @@ function SchedulesPage() {
     } catch (err) { console.error(err); }
   };
 
+  const handleDelete = async (id) => {
+    if (!confirm("¿Borrar este rol mensual?")) return;
+    try {
+      const res = await fetch(`/api/schedules/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        fetchSchedules();
+      }
+    } catch (err) { console.error(err); }
+  };
+
   const isImage = (url) => url.match(/\.(jpeg|jpg|gif|png)$/i);
 
   return (
@@ -86,7 +96,7 @@ function SchedulesPage() {
           {schedules.length === 0 && <p style={{ textAlign: 'center', color: '#999' }}>No hay roles publicados aún.</p>}
           
           {schedules.map(item => (
-            <div key={item.id} style={{ background: 'white', padding: '20px', borderRadius: '15px', boxShadow: '0 5px 15px rgba(0,0,0,0.05)' }}>
+            <div key={item.id} style={{ position: 'relative', background: 'white', padding: '20px', borderRadius: '15px', boxShadow: '0 5px 15px rgba(0,0,0,0.05)' }}>
               <h2 style={{ color: '#555', marginTop: 0 }}>{item.title}</h2>
               <p style={{ color: '#aaa', fontSize: '0.9rem' }}>Publicado el: {new Date(item.created_at).toLocaleDateString()}</p>
               
@@ -108,6 +118,11 @@ function SchedulesPage() {
                   </a>
                 )}
               </div>
+              {isAdmin && (
+                <button onClick={() => handleDelete(item.id)} className="btn-animate" style={{ position: 'absolute', top: '20px', right: '20px', background: '#FF5252', color: 'white', border: 'none', borderRadius: '50%', width: '35px', height: '35px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>
+                  🗑️
+                </button>
+              )}
             </div>
           ))}
         </div>

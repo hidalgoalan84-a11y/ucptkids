@@ -324,10 +324,26 @@ app.get('/api/schedules', async (req, res) => {
     catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+app.delete('/api/schedules/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await pool.query('DELETE FROM schedules WHERE id = $1 RETURNING file_url', [id]);
+        
+        if (result.rows.length > 0) {
+            const filename = path.basename(result.rows[0].file_url);
+            const filePath = path.join(__dirname, 'uploads', filename);
+            if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+        }
+        res.json({ success: true });
+    } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
 // --- RUTAS DE GALERÍA DE ACTIVIDADES ---
 
 app.post('/api/activities', upload.single('file'), async (req, res) => {
     try {
+        if (!req.file) throw new Error("No se ha subido ningún archivo");
+
         const { description } = req.body;
         const fileUrl = `/uploads/${req.file.filename}`;
         const fileType = req.file.mimetype.startsWith('video') ? 'video' : 'image';
@@ -337,7 +353,10 @@ app.post('/api/activities', upload.single('file'), async (req, res) => {
             [fileUrl, fileType, description]
         );
         res.json(result.rows[0]);
-    } catch (e) { res.status(500).json({ error: e.message }); }
+    } catch (e) { 
+        console.error('Error en galería:', e.message);
+        res.status(500).json({ error: e.message }); 
+    }
 });
 
 app.get('/api/activities', async (req, res) => {
