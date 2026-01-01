@@ -211,3 +211,14 @@ button:active, a.btn-animate:active {
 .login-form input {
   text-align: center; /* Centra el texto DENTRO del input */
 }
+
+/* --- VISTAS CENTRADAS (Dashboard, Galería, etc.) --- */
+.centered-view {
+  width: 100%;
+  max-width: 1200px; /* Para que no se estire demasiado en PC */
+  margin: 0 auto;    /* ESTO es lo que centra el bloque horizontalmente */
+  padding: 20px;     /* Espacio a los lados en el celular */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; <-- Opcional: Si quieres centrar todo el contenido interno */
+}

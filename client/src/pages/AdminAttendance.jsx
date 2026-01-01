@@ -17,7 +17,7 @@ function AdminAttendance() {
 
   return (
     <div className="page-container" style={{ padding: '40px', fontFamily: '"Comic Sans MS", sans-serif', background: '#f9f9f9', minHeight: '100vh' }}>
-      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+      <div className="centered-view" style={{ maxWidth: '900px' }}>
         <div className="header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <h1 style={{ color: '#555' }}>📊 Historial de Asistencia</h1>
             <Link to="/admin-panel" style={{ textDecoration: 'none', color: '#007bff', fontWeight: 'bold' }}>⬅ Volver al Panel</Link>

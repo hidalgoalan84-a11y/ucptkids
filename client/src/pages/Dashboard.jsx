@@ -23,7 +23,7 @@ function Dashboard() {
 
   return (
     <div className="page-container" style={{ padding: '40px', fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif', background: 'linear-gradient(135deg, #FFEBEE 0%, #E0F2F1 100%)', minHeight: '100vh' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div className="centered-view">
         <div className="header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
             <img src="/img/logo.png" alt="Logo" style={{ height: '60px', borderRadius: '50%' }} />

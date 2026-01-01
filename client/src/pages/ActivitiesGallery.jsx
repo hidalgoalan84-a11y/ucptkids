@@ -71,7 +71,7 @@ function ActivitiesGallery() {
 
   return (
     <div className="page-container" style={{ padding: '40px', fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif', background: 'linear-gradient(135deg, #E0F2F1 0%, #B2DFDB 100%)', minHeight: '100vh' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div className="centered-view">
         <div className="header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
           <Link to="/dashboard" style={{ textDecoration: 'none', color: '#555' }}>⬅ Volver al Dashboard</Link>
           <h1 style={{ color: '#00695C' }}>📸 Galería Semanal</h1>
