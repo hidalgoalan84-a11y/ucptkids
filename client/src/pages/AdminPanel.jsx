@@ -60,6 +60,16 @@ function AdminPanel() {
     }
   }
 
+  const eliminarAlumno = async (id) => {
+    if (!confirm("⚠️ ¿Estás seguro de eliminar este alumno?")) return;
+    const res = await fetch(`/api/students/${id}`, { method: 'DELETE' });
+    if (res.ok) {
+      cargarAlumnos();
+    } else {
+      alert("Error al eliminar alumno");
+    }
+  }
+
   const crearGrupo = async (e) => {
     e.preventDefault()
     await fetch('/api/groups', {
@@ -140,7 +150,7 @@ function AdminPanel() {
         {pendingUsers.length === 0 && <p style={{color: '#777'}}>No hay usuarios pendientes.</p>}
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {pendingUsers.map(u => (
-            <li key={u.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', background: 'white', padding: '10px', borderRadius: '8px' }}>
+            <li key={u.id} className="admin-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', background: 'white', padding: '10px', borderRadius: '8px' }}>
               <span style={{ fontWeight: 'bold', color: '#555' }}>👤 {u.username}</span>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <button onClick={() => aprobarUsuario(u.id)} style={{ background: '#4ECDC4', border: 'none', padding: '8px 15px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
@@ -160,7 +170,7 @@ function AdminPanel() {
         <h2 style={{ marginTop: 0, color: '#0097A7' }}>👨‍🏫 Profesores Activos ({teachers.length})</h2>
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {teachers.map(u => (
-            <li key={u.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', background: 'white', padding: '10px', borderRadius: '8px' }}>
+            <li key={u.id} className="admin-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', background: 'white', padding: '10px', borderRadius: '8px' }}>
               <span style={{ fontWeight: 'bold', color: '#555' }}>🎓 {u.username}</span>
               <button onClick={() => eliminarUsuario(u.id, 'teacher')} style={{ background: '#FF5252', border: 'none', padding: '8px 15px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
                 🗑️ Eliminar
@@ -231,10 +241,13 @@ function AdminPanel() {
 
       <div style={cardStyle}>
         <h2 style={{ marginTop: 0, color: '#555' }}>📋 Alumnos Registrados</h2>
-        <ul style={{ paddingLeft: '20px', color: '#666' }}>
+        <ul style={{ listStyle: 'none', padding: 0 }}>
           {alumnos.map(alumno => (
-            <li key={alumno.id} style={{ marginBottom: '5px' }}>
-              <strong>{alumno.nombre_completo}</strong> ({alumno.edad} años)
+            <li key={alumno.id} className="admin-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', background: '#f9f9f9', padding: '10px', borderRadius: '8px' }}>
+              <span style={{ color: '#555' }}><strong>{alumno.nombre_completo}</strong> ({alumno.edad} años)</span>
+              <button onClick={() => eliminarAlumno(alumno.id)} style={{ background: '#FF5252', border: 'none', padding: '5px 10px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
+                🗑️
+              </button>
             </li>
           ))}
         </ul>

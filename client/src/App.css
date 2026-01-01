@@ -94,6 +94,13 @@ input:-webkit-autofill:active {
   .footer-content {
     flex-direction: column !important;
   }
+
+  /* Listas del Admin Panel en columna */
+  .admin-list-item {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
 }
 
 /* --- ANIMACIONES Y TRANSICIONES --- */

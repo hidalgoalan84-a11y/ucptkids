@@ -81,9 +81,9 @@ function GroupPage() {
 
       {/* SECCIÓN DE PROFESORES ENCARGADOS */}
       <div style={{ background: '#E0F7FA', padding: '20px', borderRadius: '15px', marginBottom: '30px', border: '2px solid #B2EBF2' }}>
-        <h2 style={{ marginTop: 0, color: '#006064' }}>🍎 Profesores Encargados</h2>
+        <h2 style={{ marginTop: 0, color: '#006064', textAlign: 'center' }}>🍎 Profesores Encargados</h2>
         
-        <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
           {teachers.length === 0 && <p style={{ color: '#666' }}>No hay profesores asignados aún.</p>}
           {teachers.map(t => (
             <div key={t.id} style={{ background: 'white', padding: '10px 20px', borderRadius: '20px', display: 'flex', alignItems: 'center', gap: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
@@ -97,7 +97,7 @@ function GroupPage() {
 
         {/* Formulario solo para Admin */}
         {user.role === 'admin' && (
-          <form onSubmit={handleAssignTeacher} style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
+          <form onSubmit={handleAssignTeacher} style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <select value={selectedTeacherId} onChange={e => setSelectedTeacherId(e.target.value)} style={{ padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }}>
               <option value="">-- Asignar Profesor --</option>
               {availableTeachers.map(t => <option key={t.id} value={t.id}>{t.username}</option>)}
