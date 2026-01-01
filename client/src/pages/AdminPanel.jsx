@@ -69,8 +69,26 @@ function AdminPanel() {
   }
 
   const handleDelete = async (id) => {
-    console.log('eliminar', id);
-    // Lógica temporalmente deshabilitada para asegurar compilación
+    if (!confirm("⚠️ ¿Estás seguro de eliminar este alumno?")) return;
+    try {
+      const res = await fetch(`/api/students/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        cargarAlumnos();
+      } else { alert("Error al eliminar alumno"); }
+    } catch (e) {
+      console.error(e);
+      alert("Error de conexión");
+    }
+  }
+
+  const eliminarGrupo = async (id) => {
+    if (!confirm("⚠️ ¿Estás seguro de eliminar este grupo? Se borrarán todos sus alumnos y asignaciones.")) return;
+    try {
+      const res = await fetch(`/api/groups/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        cargarGrupos();
+      } else { alert("Error al eliminar grupo"); }
+    } catch (e) { console.error(e); }
   }
 
   const crearGrupo = async (e) => {
@@ -207,6 +225,21 @@ function AdminPanel() {
           />
           <button type="submit" className="btn-animate" style={{ ...buttonStyle, backgroundColor: '#4ECDC4' }}>Crear Salón</button>
         </form>
+      </div>
+      
+      {/* LISTA DE GRUPOS EXISTENTES (Para poder eliminarlos) */}
+      <div style={cardStyle}>
+        <h2 style={{ marginTop: 0, color: '#4ECDC4' }}>🏫 Salones Existentes</h2>
+        <ul style={{ listStyle: 'none', padding: 0 }}>
+          {grupos.map(g => (
+            <li key={g.id} className="admin-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', background: '#f9f9f9', padding: '10px', borderRadius: '8px' }}>
+              <span style={{ color: '#555' }}><strong>{g.nombre}</strong> ({g.horario})</span>
+              <button onClick={() => eliminarGrupo(g.id)} className="btn-animate" style={{ background: '#FF5252', border: 'none', padding: '5px 10px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
+                🗑️
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div style={cardStyle}>

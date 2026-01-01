@@ -59,6 +59,16 @@ function ActivitiesGallery() {
     setUploading(false);
   };
 
+  const handleDelete = async (id) => {
+    if (!confirm("¿Borrar esta actividad?")) return;
+    try {
+      const res = await fetch(`/api/activities/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        fetchActivities();
+      }
+    } catch (err) { console.error(err); }
+  };
+
   return (
     <div className="page-container" style={{ padding: '40px', fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif', background: 'linear-gradient(135deg, #E0F2F1 0%, #B2DFDB 100%)', minHeight: '100vh' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -96,7 +106,7 @@ function ActivitiesGallery() {
         {/* GRID DE GALERÍA */}
         <div className="dashboard-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
           {Array.isArray(activities) && activities.map((item, index) => (
-            <div key={item.id} className="card-hover fade-in" style={{ background: 'white', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', animationDelay: `${index * 0.1}s` }}>
+            <div key={item.id} className="card-hover fade-in" style={{ position: 'relative', background: 'white', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', animationDelay: `${index * 0.1}s` }}>
               {item.file_type === 'video' 
                 ? <video src={item.file_url} controls style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
                 : <img src={item.file_url} alt={item.description} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
@@ -105,6 +115,11 @@ function ActivitiesGallery() {
                 <p style={{ margin: 0, fontWeight: 'bold', color: '#444' }}>{item.description || 'Sin descripción'}</p>
                 <small style={{ color: '#888' }}>{new Date(item.created_at).toLocaleDateString()}</small>
               </div>
+              {isAdmin && (
+                <button onClick={() => handleDelete(item.id)} style={{ position: 'absolute', top: '10px', right: '10px', background: '#FF5252', color: 'white', border: 'none', borderRadius: '50%', width: '30px', height: '30px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
+                  🗑️
+                </button>
+              )}
             </div>
           ))}
         </div>

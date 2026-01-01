@@ -267,6 +267,13 @@ app.post('/api/groups', async (req, res) => {
   catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+app.delete('/api/groups/:id', async (req, res) => {
+  try {
+    const result = await pool.query('DELETE FROM groups WHERE id = $1', [req.params.id]);
+    res.json({ success: true, message: "Grupo eliminado" });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
 // --- RUTAS DE ASIGNACIÓN DE PROFESORES ---
 
 // Obtener profesores de un grupo
@@ -336,6 +343,20 @@ app.post('/api/activities', upload.single('file'), async (req, res) => {
 app.get('/api/activities', async (req, res) => {
     try { const result = await pool.query('SELECT * FROM activities ORDER BY created_at DESC'); res.json(result.rows); }
     catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.delete('/api/activities/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await pool.query('DELETE FROM activities WHERE id = $1 RETURNING file_url', [id]);
+        
+        if (result.rows.length > 0) {
+            const filename = path.basename(result.rows[0].file_url);
+            const filePath = path.join(__dirname, 'uploads', filename);
+            if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+        }
+        res.json({ success: true });
+    } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
 // --- RUTAS DE ASISTENCIA ---

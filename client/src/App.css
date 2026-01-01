@@ -1,8 +1,25 @@
-body {
+/* Reset global para asegurar altura completa */
+html, body, #root {
+  height: 100%;
+  width: 100%;
   margin: 0;
-  background-color: #f0f2f5; /* Color de respaldo por si falla el degradado */
-  font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
-  -webkit-tap-highlight-color: transparent; /* Elimina el flash azul al tocar en móviles */
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Convertir el contenedor raíz en un flexbox centrado */
+#root {
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center;     /* Centrado vertical */
+  background-color: #f0fdfa; /* Mantenemos tu color de fondo */
+}
+
+/* Asegurar que el contenido interno no se estire de más */
+.login-container, .form-container {
+  width: 90%;       /* Ocupa el 90% del ancho en celular */
+  max-width: 400px; /* Pero no pases de 400px en PC */
+  margin: auto;     /* Centrado de seguridad */
 }
 
 /* Estilos Globales para Formularios (Inputs y Selects) */
@@ -159,14 +176,12 @@ button:active, a.btn-animate:active {
 
 /* --- ESTILOS ESPECÍFICOS LOGIN (Centrado Móvil) --- */
 .login-container {
-  min-height: 100vh;
-  width: 100%;
+  /* min-height: 100vh;  <-- Ya no es necesario porque #root tiene height: 100% */
+  /* width: 100%;        <-- Controlado por la regla de arriba */
   background: linear-gradient(135deg, #FFEBEE 0%, #E0F2F1 100%);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;           /* Espacio seguro en bordes de móvil */
-  box-sizing: border-box;
 }
 
 .login-card {
