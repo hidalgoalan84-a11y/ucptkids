@@ -41,14 +41,12 @@ function LoginPage() {
           placeholder="Usuario"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          style={{ padding: '10px', fontSize: '16px' }}
         />
         <input
           type="password"
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{ padding: '10px', fontSize: '16px' }}
         />
           <button type="submit" style={{ padding: '12px', backgroundColor: '#4ECDC4', color: 'white', border: 'none', borderRadius: '10px', fontSize: '1.1rem', cursor: 'pointer', fontWeight: 'bold' }}>Entrar</button>
         </form>

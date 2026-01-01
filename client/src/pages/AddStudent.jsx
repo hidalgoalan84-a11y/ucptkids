@@ -43,21 +43,19 @@ function AddStudent() {
     }
   };
 
-  const inputStyle = { width: '100%', padding: '8px', margin: '5px 0', boxSizing: 'border-box' };
-
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #FFEBEE 0%, #E0F2F1 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif' }}>
       <div style={{ maxWidth: '500px', width: '90%', padding: '30px', background: 'white', borderRadius: '20px', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}>
         <h2 style={{ textAlign: 'center', color: '#555' }}>📝 Registrar Nuevo Alumno</h2>
         <form onSubmit={handleSubmit} style={{ padding: '10px' }}>
           <label>Nombre Completo:</label>
-          <input type="text" name="nombre_completo" required onChange={handleChange} style={inputStyle} placeholder="Ej: Juan Pérez" />
+          <input type="text" name="nombre_completo" required onChange={handleChange} placeholder="Ej: Juan Pérez" />
           
           <label>Edad:</label>
-          <input type="number" name="edad" required onChange={handleChange} style={inputStyle} placeholder="Ej: 4" />
+          <input type="number" name="edad" required onChange={handleChange} placeholder="Ej: 4" />
           
           <label>ID del Grupo:</label>
-          <select name="grupo_id" onChange={handleChange} style={inputStyle} required defaultValue="">
+          <select name="grupo_id" onChange={handleChange} required defaultValue="">
             <option value="" disabled>-- Selecciona un grupo --</option>
             {groups.map(group => (
               <option key={group.id} value={group.id}>{group.nombre}</option>
@@ -65,7 +63,7 @@ function AddStudent() {
           </select>
           
           <label>URL Foto de Perfil:</label>
-          <input type="text" name="foto_perfil" onChange={handleChange} style={inputStyle} placeholder="https://ejemplo.com/foto.jpg" />
+          <input type="text" name="foto_perfil" onChange={handleChange} placeholder="https://ejemplo.com/foto.jpg" />
           
           <div style={{ textAlign: 'center', marginTop: '20px' }}>
             <button type="submit" style={{ padding: '10px 20px', backgroundColor: '#4ECDC4', color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold', marginRight: '10px' }}>Guardar</button>
