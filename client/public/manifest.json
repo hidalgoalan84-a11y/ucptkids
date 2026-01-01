@@ -1,0 +1,20 @@
+{
+  "short_name": "UCPT Kids",
+  "name": "UCPT Kids App",
+  "icons": [
+    {
+      "src": "img/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "img/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#f0fdfa",
+  "background_color": "#ffffff"
+}
