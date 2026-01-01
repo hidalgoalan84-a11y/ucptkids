@@ -10,16 +10,17 @@ html, body, #root {
 /* Convertir el contenedor raíz en un flexbox centrado */
 #root {
   display: flex;
-  justify-content: center; /* Centrado horizontal */
-  align-items: center;     /* Centrado vertical */
+  /* justify-content: center; <-- ELIMINADO: Causa recorte en móviles */
+  /* align-items: center;     <-- ELIMINADO: Causa recorte en móviles */
   background-color: #f0fdfa; /* Mantenemos tu color de fondo */
+  padding: 20px; /* Espacio seguro para que no pegue a los bordes */
 }
 
 /* Asegurar que el contenido interno no se estire de más */
 .login-container, .form-container {
   width: 90%;       /* Ocupa el 90% del ancho en celular */
   max-width: 400px; /* Pero no pases de 400px en PC */
-  margin: auto;     /* Centrado de seguridad */
+  margin: auto;     /* LA CLAVE: Esto centra vertical y horizontalmente de forma segura */
 }
 
 /* Estilos Globales para Formularios (Inputs y Selects) */
@@ -180,8 +181,9 @@ button:active, a.btn-animate:active {
   /* width: 100%;        <-- Controlado por la regla de arriba */
   background: linear-gradient(135deg, #FFEBEE 0%, #E0F2F1 100%);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; <-- ELIMINADO */
+  /* align-items: center;     <-- ELIMINADO */
+  padding: 20px; /* Espacio seguro */
 }
 
 .login-card {
@@ -195,6 +197,7 @@ button:active, a.btn-animate:active {
   display: flex;
   flex-direction: column;
   align-items: center; /* Centra elementos hijos (img, h2, form) */
+  margin: auto; /* LA CLAVE: Centrado seguro dentro del flex container */
 }
 
 .login-form {
