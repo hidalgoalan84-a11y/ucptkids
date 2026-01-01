@@ -18,27 +18,35 @@ function AdminPanel() {
   }, [])
 
   const cargarGrupos = async () => {
-    const respuesta = await fetch('/api/groups')
-    const datos = await respuesta.json()
-    setGrupos(datos)
+    try {
+      const respuesta = await fetch('/api/groups')
+      const datos = await respuesta.json()
+      if (Array.isArray(datos)) setGrupos(datos)
+    } catch (e) { console.error(e) }
   }
 
   const cargarAlumnos = async () => {
-    const respuesta = await fetch('/api/students')
-    const datos = await respuesta.json()
-    setAlumnos(datos)
+    try {
+      const respuesta = await fetch('/api/students')
+      const datos = await respuesta.json()
+      if (Array.isArray(datos)) setAlumnos(datos)
+    } catch (e) { console.error(e) }
   }
 
   const cargarPendientes = async () => {
-    const res = await fetch('/api/users/pending')
-    const data = await res.json()
-    setPendingUsers(data)
+    try {
+      const res = await fetch('/api/users/pending')
+      const data = await res.json()
+      if (Array.isArray(data)) setPendingUsers(data)
+    } catch (e) { console.error(e) }
   }
 
   const cargarTeachers = async () => {
-    const res = await fetch('/api/users/teachers')
-    const data = await res.json()
-    setTeachers(data)
+    try {
+      const res = await fetch('/api/users/teachers')
+      const data = await res.json()
+      if (Array.isArray(data)) setTeachers(data)
+    } catch (e) { console.error(e) }
   }
 
   const aprobarUsuario = async (id) => {
