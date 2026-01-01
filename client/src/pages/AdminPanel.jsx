@@ -155,7 +155,7 @@ function AdminPanel() {
       {/* SECCIÓN DE MODERACIÓN */}
       <div style={{ background: '#FFF9C4', padding: '20px', borderRadius: '15px', marginBottom: '30px', border: '2px solid #FFF59D' }}>
         <h2 style={{ marginTop: 0, color: '#FBC02D' }}>🛡️ Solicitudes de Acceso ({pendingUsers.length})</h2>
-        {pendingUsers.length === 0 && <p style={{color: '#777'}}>No hay usuarios pendientes.</p>}
+        {(!pendingUsers || pendingUsers.length === 0) && <p style={{color: '#777'}}>No hay usuarios pendientes.</p>}
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {pendingUsers.map(u => (
             <li key={u.id} className="admin-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', background: 'white', padding: '10px', borderRadius: '8px' }}>

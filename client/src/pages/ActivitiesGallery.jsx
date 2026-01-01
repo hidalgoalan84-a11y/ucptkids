@@ -6,7 +6,14 @@ function ActivitiesGallery() {
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  
+  // Lectura segura del usuario (evita pantalla blanca si localStorage falla)
+  let user = {};
+  try {
+    user = JSON.parse(localStorage.getItem('user') || '{}');
+  } catch (e) {
+    console.error("Error leyendo usuario:", e);
+  }
   const isAdmin = user.role === 'admin';
 
   useEffect(() => {
