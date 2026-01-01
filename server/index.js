@@ -389,11 +389,22 @@ app.post('/api/students', async (req, res) => {
   catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+app.delete('/api/students/:id', async (req, res) => {
+  try {
+    const result = await pool.query('DELETE FROM students WHERE id = $1', [req.params.id]);
+    res.json({ success: true, message: "Alumno eliminado" });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
 // Servir archivos de React
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// 👇 AQUÍ ESTABA EL ERROR: Cambiamos '*' por /.*/
-app.get(/.*/, (req, res) => {
+// Manejo de rutas para SPA (Single Page Application)
+app.get('*', (req, res) => {    
+    // Agregamos headers para prevenir el caché del index.html
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 

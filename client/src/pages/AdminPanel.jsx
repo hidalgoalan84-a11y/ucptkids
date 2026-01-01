@@ -68,13 +68,16 @@ function AdminPanel() {
     }
   }
 
-  const eliminarAlumno = async (id) => {
+  const handleDelete = async (id) => {
     if (!confirm("⚠️ ¿Estás seguro de eliminar este alumno?")) return;
-    const res = await fetch(`/api/students/${id}`, { method: 'DELETE' });
-    if (res.ok) {
-      cargarAlumnos();
-    } else {
-      alert("Error al eliminar alumno");
+    try {
+      const res = await fetch(`/api/students/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        cargarAlumnos();
+      } else { alert("Error al eliminar alumno"); }
+    } catch (e) {
+      console.error(e);
+      alert("Error de conexión");
     }
   }
 
@@ -253,7 +256,7 @@ function AdminPanel() {
           {alumnos.map(alumno => (
             <li key={alumno.id} className="admin-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', background: '#f9f9f9', padding: '10px', borderRadius: '8px' }}>
               <span style={{ color: '#555' }}><strong>{alumno.nombre_completo}</strong> ({alumno.edad} años)</span>
-              <button onClick={() => eliminarAlumno(alumno.id)} style={{ background: '#FF5252', border: 'none', padding: '5px 10px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
+              <button onClick={() => handleDelete(alumno.id)} style={{ background: '#FF5252', border: 'none', padding: '5px 10px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
                 🗑️
               </button>
             </li>

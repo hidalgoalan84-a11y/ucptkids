@@ -35,12 +35,10 @@ function RegisterPage() {
           <input 
             type="text" placeholder="Elige un Usuario" 
             onChange={e => setFormData({...formData, username: e.target.value})}
-            style={{ padding: '15px', borderRadius: '10px', border: '2px solid #eee', fontSize: '1rem' }}
           />
           <input 
             type="password" placeholder="Elige una Contraseña" 
             onChange={e => setFormData({...formData, password: e.target.value})}
-            style={{ padding: '15px', borderRadius: '10px', border: '2px solid #eee', fontSize: '1rem' }}
           />
           <button type="submit" style={{ padding: '15px', background: '#4ECDC4', color: 'white', border: 'none', borderRadius: '10px', fontSize: '1.1rem', cursor: 'pointer', fontWeight: 'bold' }}>
             Solicitar Acceso
