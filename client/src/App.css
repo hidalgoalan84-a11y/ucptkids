@@ -1,0 +1,151 @@
+body {
+  margin: 0;
+  background-color: #f0f2f5; /* Color de respaldo por si falla el degradado */
+  font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+  -webkit-tap-highlight-color: transparent; /* Elimina el flash azul al tocar en móviles */
+}
+
+/* Estilos Globales para Formularios (Inputs y Selects) */
+input, select, textarea {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  border: 2px solid #cccccc !important; /* Borde gris más visible */
+  border-radius: 12px !important;       /* Bordes redondeados */
+  padding: 15px !important; /* Más espacio para dedos en móvil */
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Efecto Focus (Cuando escribes) */
+input:focus, select:focus, textarea:focus {
+  border-color: #4ECDC4 !important; /* Turquesa */
+  box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.2);
+}
+
+/* Corrección para el autocompletado de Chrome (evita el fondo amarillo/azul) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #333 !important;
+}
+
+/* --- RESPONSIVIDAD (MOBILE FIRST) --- */
+
+/* Contenedor responsivo para tablas (Scroll horizontal suave) */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Ajustes para pantallas pequeñas (Móviles y Tablets verticales) */
+@media (max-width: 768px) {
+  /* Ajuste general de padding en contenedores principales */
+  .page-container {
+    padding: 20px !important;
+  }
+
+  /* Títulos más pequeños para que no se corten */
+  h1 {
+    font-size: 1.8rem !important;
+    word-wrap: break-word;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  /* Botones al 100% de ancho para fácil toque */
+  button, .btn-mobile {
+    width: 100% !important;
+    margin-bottom: 10px !important;
+    padding: 15px !important; /* Zona de toque más grande */
+    font-size: 1.1rem !important;
+  }
+
+  /* Inputs y Selects al 100% */
+  input, select, textarea {
+    width: 100% !important;
+    font-size: 16px !important; /* Evita zoom automático en iOS */
+  }
+
+  /* Ajuste de Grid en Dashboard (1 columna) */
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Ajuste de Flexbox en Headers (Columna en vez de Fila) */
+  .header-flex {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 15px !important;
+    text-align: center;
+  }
+
+  /* Footer en columna */
+  .footer-content {
+    flex-direction: column !important;
+  }
+}
+
+/* --- ANIMACIONES Y TRANSICIONES --- */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.9); }
+  70% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+.pop-in {
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Efectos Hover para Tarjetas */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
+}
+
+/* Efectos Hover para Botones */
+button, a.btn-animate {
+  transition: transform 0.2s ease, filter 0.2s ease !important;
+}
+
+button:hover, a.btn-animate:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+button:active, a.btn-animate:active {
+  transform: scale(0.95);
+}

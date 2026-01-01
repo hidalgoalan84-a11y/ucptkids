@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Alumno - UCPT Kids</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Fredoka', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { text-align: center; color: #556270; margin-top: 0; }
+        label { display: block; margin-top: 15px; color: #666; font-weight: bold; }
+        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 2px solid #eee; border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
+        input:focus { border-color: #4ECDC4; outline: none; }
+        
+        .btn-save { width: 100%; padding: 15px; background-color: #4ECDC4; color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        .btn-save:hover { background-color: #3db9b0; }
+        
+        .btn-back { display: block; text-align: center; margin-top: 15px; color: #888; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>👶 Nuevo Ingreso</h2>
+        
+        <form id="studentForm">
+            <label>Nombre Completo:</label>
+            <input type="text" id="nombre" required placeholder="Ej. Juanito Pérez">
+
+            <label>Edad:</label>
+            <input type="number" id="edad" required placeholder="Ej. 5">
+
+            <label>URL de Foto (Opcional):</label>
+            <input type="text" id="foto" placeholder="Pega un link de imagen aquí">
+            
+            <input type="hidden" id="grupo_id" value="1"> 
+
+            <button type="submit" class="btn-save">Guardar Alumno</button>
+            <a href="/dashboard" class="btn-back">Cancelar y volver</a>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('studentForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Evita que la página se recargue
+
+            // 1. Recolectar datos
+            const data = {
+                nombre_completo: document.getElementById('nombre').value,
+                edad: document.getElementById('edad').value,
+                foto_perfil: document.getElementById('foto').value,
+                grupo_id: 1 // Temporalmente todos van al grupo 1
+            };
+
+            // 2. Enviar al servidor (API)
+            try {
+                const response = await fetch('/api/students', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert('¡Alumno registrado con éxito!');
+                    window.location.href = '/dashboard'; // Volver al panel
+                } else {
+                    alert('Error al guardar. Revisa la consola.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error de conexión.');
+            }
+        });
+    </script>
+</body>
+</html>
