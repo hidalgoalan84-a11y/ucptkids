@@ -5,12 +5,12 @@
     {
       "src": "img/logo.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "1024x1024"
     },
     {
       "src": "img/logo.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "any"
     }
   ],
   "start_url": "/",
