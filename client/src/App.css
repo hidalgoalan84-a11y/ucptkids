@@ -162,7 +162,9 @@ button:active, a.btn-animate:active {
   min-height: 100vh;
   width: 100%;
   background: linear-gradient(135deg, #FFEBEE 0%, #E0F2F1 100%);
-  display: grid; place-items: center; /* Centrado robusto */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;           /* Espacio seguro en bordes de móvil */
   box-sizing: border-box;
 }

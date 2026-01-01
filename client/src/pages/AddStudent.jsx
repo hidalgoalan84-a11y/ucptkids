@@ -66,8 +66,8 @@ function AddStudent() {
           <input type="text" name="foto_perfil" onChange={handleChange} placeholder="https://ejemplo.com/foto.jpg" />
           
           <div style={{ textAlign: 'center', marginTop: '20px' }}>
-            <button type="submit" style={{ padding: '10px 20px', backgroundColor: '#4ECDC4', color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold', marginRight: '10px' }}>Guardar</button>
-            <button type="button" onClick={() => navigate('/dashboard')} style={{ padding: '10px 20px', backgroundColor: '#FF6B6B', color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold' }}>Cancelar</button>
+            <button type="submit" className="btn-animate" style={{ padding: '10px 20px', backgroundColor: '#4ECDC4', color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold', marginRight: '10px' }}>Guardar</button>
+            <button type="button" onClick={() => navigate('/dashboard')} className="btn-animate" style={{ padding: '10px 20px', backgroundColor: '#FF6B6B', color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold' }}>Cancelar</button>
           </div>
         </form>
       </div>

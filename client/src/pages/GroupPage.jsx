@@ -83,7 +83,7 @@ function GroupPage() {
             <div key={t.id} style={{ background: 'white', padding: '10px 20px', borderRadius: '20px', display: 'flex', alignItems: 'center', gap: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
               <span style={{ fontWeight: 'bold', color: '#555' }}>{t.username}</span>
               {user.role === 'admin' && (
-                <button onClick={() => handleRemoveTeacher(t.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}>🗑️</button>
+                <button onClick={() => handleRemoveTeacher(t.id)} className="btn-animate" style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}>🗑️</button>
               )}
             </div>
           ))}
@@ -96,7 +96,7 @@ function GroupPage() {
               <option value="">-- Asignar Profesor --</option>
               {availableTeachers.map(t => <option key={t.id} value={t.id}>{t.username}</option>)}
             </select>
-            <button type="submit" style={{ background: '#00BCD4', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer' }}>Asignar</button>
+            <button type="submit" className="btn-animate" style={{ background: '#00BCD4', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer' }}>Asignar</button>
           </form>
         )}
       </div>
@@ -107,10 +107,10 @@ function GroupPage() {
         {/* RENDERIZADO CONDICIONAL POR ROL */}
         {canEdit && (
           <div className="header-flex" style={{ display: 'flex', gap: '10px' }}>
-          <Link to={`/group/${id}/attendance`} style={{ background: '#FF9800', color: 'white', padding: '10px 20px', borderRadius: '20px', textDecoration: 'none', fontWeight: 'bold' }}>
+          <Link to={`/group/${id}/attendance`} className="btn-animate" style={{ background: '#FF9800', color: 'white', padding: '10px 20px', borderRadius: '20px', textDecoration: 'none', fontWeight: 'bold' }}>
             📝 Pasar Lista
           </Link>
-          <Link to="/add-student" style={{ background: '#4ECDC4', color: 'white', padding: '10px 20px', borderRadius: '20px', textDecoration: 'none', fontWeight: 'bold' }}>
+          <Link to="/add-student" className="btn-animate" style={{ background: '#4ECDC4', color: 'white', padding: '10px 20px', borderRadius: '20px', textDecoration: 'none', fontWeight: 'bold' }}>
             + Nuevo Alumno
           </Link>
           </div>
@@ -129,7 +129,7 @@ function GroupPage() {
             <p style={{ color: '#999' }}>{student.edad} años</p>
             
             {canEdit && (
-               <button onClick={() => handleDelete(student.id)} style={{ marginTop: '10px', background: '#FF6B6B', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px', cursor: 'pointer' }}>
+               <button onClick={() => handleDelete(student.id)} className="btn-animate" style={{ marginTop: '10px', background: '#FF6B6B', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px', cursor: 'pointer' }}>
                  Eliminar
                </button>
             )}

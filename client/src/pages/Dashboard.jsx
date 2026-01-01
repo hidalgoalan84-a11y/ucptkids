@@ -31,17 +31,17 @@ function Dashboard() {
           </div>
           <div className="header-flex" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             {user.role === 'admin' && (
-              <Link to="/admin-panel" style={{ textDecoration: 'none', background: '#333', color: 'white', padding: '10px 20px', borderRadius: '20px' }}>
+              <Link to="/admin-panel" className="btn-animate" style={{ textDecoration: 'none', background: '#333', color: 'white', padding: '10px 20px', borderRadius: '20px' }}>
                 ⚙️ Panel Admin
               </Link>
             )}
-            <Link to="/schedules" style={{ textDecoration: 'none', background: '#FF6B6B', color: 'white', padding: '10px 20px', borderRadius: '20px' }}>
+            <Link to="/schedules" className="btn-animate" style={{ textDecoration: 'none', background: '#FF6B6B', color: 'white', padding: '10px 20px', borderRadius: '20px' }}>
                 📅 Roles del Mes
             </Link>
-            <Link to="/activities" style={{ textDecoration: 'none', background: '#009688', color: 'white', padding: '10px 20px', borderRadius: '20px' }}>
+            <Link to="/activities" className="btn-animate" style={{ textDecoration: 'none', background: '#009688', color: 'white', padding: '10px 20px', borderRadius: '20px' }}>
                 📸 Galería
             </Link>
-            <button onClick={handleLogout} style={{ background: '#556270', color: 'white', padding: '10px 20px', borderRadius: '20px', border: 'none', cursor: 'pointer', fontSize: '1rem' }}>
+            <button onClick={handleLogout} className="btn-animate" style={{ background: '#556270', color: 'white', padding: '10px 20px', borderRadius: '20px', border: 'none', cursor: 'pointer', fontSize: '1rem' }}>
                 🚪 Salir
             </button>
           </div>

@@ -27,11 +27,11 @@ function RegisterPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #FFEBEE 0%, #E0F2F1 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif' }}>
-      <div className="pop-in" style={{ maxWidth: '400px', width: '90%', padding: '30px', background: 'white', borderRadius: '20px', boxShadow: '0 10px 25px rgba(0,0,0,0.1)', textAlign: 'center' }}>
+    <div className="login-container">
+      <div className="login-card pop-in">
         <img src="/img/logo.png" alt="Logo" style={{ width: '80px', marginBottom: '10px', borderRadius: '50%' }} />
         <h2 style={{ color: '#4ECDC4', marginBottom: '20px' }}>📝 Nuevo Profesor</h2>
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+        <form onSubmit={handleSubmit} className="login-form">
           <input 
             type="text" placeholder="Elige un Usuario" 
             onChange={e => setFormData({...formData, username: e.target.value})}
@@ -40,11 +40,11 @@ function RegisterPage() {
             type="password" placeholder="Elige una Contraseña" 
             onChange={e => setFormData({...formData, password: e.target.value})}
           />
-          <button type="submit" style={{ padding: '15px', background: '#4ECDC4', color: 'white', border: 'none', borderRadius: '10px', fontSize: '1.1rem', cursor: 'pointer', fontWeight: 'bold' }}>
+          <button type="submit" className="btn-animate" style={{ padding: '15px', background: '#4ECDC4', color: 'white', border: 'none', borderRadius: '10px', fontSize: '1.1rem', cursor: 'pointer', fontWeight: 'bold' }}>
             Solicitar Acceso
           </button>
         </form>
-        <button onClick={() => navigate('/')} style={{ marginTop: '20px', background: 'transparent', border: 'none', color: '#888', cursor: 'pointer', textDecoration: 'underline' }}>
+        <button onClick={() => navigate('/')} className="btn-animate" style={{ marginTop: '20px', background: 'transparent', border: 'none', color: '#888', cursor: 'pointer', textDecoration: 'underline' }}>
           ⬅ Volver al Inicio
         </button>
       </div>

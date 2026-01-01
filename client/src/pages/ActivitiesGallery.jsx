@@ -85,7 +85,7 @@ function ActivitiesGallery() {
                 onChange={e => setFile(e.target.files[0])}
                 style={{ padding: '10px' }}
               />
-              <button type="submit" disabled={uploading} style={{ background: '#009688', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>
+              <button type="submit" disabled={uploading} className="btn-animate" style={{ background: '#009688', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>
                 {uploading ? 'Subiendo...' : 'Publicar'}
               </button>
             </form>

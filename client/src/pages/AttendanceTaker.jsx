@@ -75,8 +75,8 @@ function AttendanceTaker() {
         </div>
 
         <div className="header-flex" style={{ marginTop: '30px', display: 'flex', gap: '10px' }}>
-          <button onClick={handleSubmit} style={{ flex: 1, padding: '15px', background: '#4CAF50', color: 'white', border: 'none', borderRadius: '10px', fontSize: '1.1rem', cursor: 'pointer', fontWeight: 'bold' }}>Guardar Asistencia</button>
-          <button onClick={() => navigate(`/group/${groupId}`)} style={{ flex: 1, padding: '15px', background: '#FF5252', color: 'white', border: 'none', borderRadius: '10px', fontSize: '1.1rem', cursor: 'pointer', fontWeight: 'bold' }}>Cancelar</button>
+          <button onClick={handleSubmit} className="btn-animate" style={{ flex: 1, padding: '15px', background: '#4CAF50', color: 'white', border: 'none', borderRadius: '10px', fontSize: '1.1rem', cursor: 'pointer', fontWeight: 'bold' }}>Guardar Asistencia</button>
+          <button onClick={() => navigate(`/group/${groupId}`)} className="btn-animate" style={{ flex: 1, padding: '15px', background: '#FF5252', color: 'white', border: 'none', borderRadius: '10px', fontSize: '1.1rem', cursor: 'pointer', fontWeight: 'bold' }}>Cancelar</button>
         </div>
       </div>
     </div>

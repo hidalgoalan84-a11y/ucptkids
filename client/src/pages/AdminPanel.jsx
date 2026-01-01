@@ -142,7 +142,7 @@ function AdminPanel() {
       <h1 style={{ color: '#555', textAlign: 'center', marginBottom: '30px' }}>⚙️ Panel de Profesores</h1>
       
       <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-        <Link to="/admin/attendance" style={{ background: '#673AB7', color: 'white', padding: '12px 25px', borderRadius: '25px', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem', boxShadow: '0 4px 10px rgba(103, 58, 183, 0.3)' }}>
+        <Link to="/admin/attendance" className="btn-animate" style={{ background: '#673AB7', color: 'white', padding: '12px 25px', borderRadius: '25px', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem', boxShadow: '0 4px 10px rgba(103, 58, 183, 0.3)' }}>
             📊 Ver Historial de Asistencia
         </Link>
       </div>
@@ -156,10 +156,10 @@ function AdminPanel() {
             <li key={u.id} className="admin-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', background: 'white', padding: '10px', borderRadius: '8px' }}>
               <span style={{ fontWeight: 'bold', color: '#555' }}>👤 {u.username}</span>
               <div style={{ display: 'flex', gap: '10px' }}>
-                <button onClick={() => aprobarUsuario(u.id)} style={{ background: '#4ECDC4', border: 'none', padding: '8px 15px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
+                <button onClick={() => aprobarUsuario(u.id)} className="btn-animate" style={{ background: '#4ECDC4', border: 'none', padding: '8px 15px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
                   ✅ Aprobar
                 </button>
-                <button onClick={() => eliminarUsuario(u.id, 'pending')} style={{ background: '#FF5252', border: 'none', padding: '8px 15px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
+                <button onClick={() => eliminarUsuario(u.id, 'pending')} className="btn-animate" style={{ background: '#FF5252', border: 'none', padding: '8px 15px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
                   🗑️
                 </button>
               </div>
@@ -175,7 +175,7 @@ function AdminPanel() {
           {teachers.map(u => (
             <li key={u.id} className="admin-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', background: 'white', padding: '10px', borderRadius: '8px' }}>
               <span style={{ fontWeight: 'bold', color: '#555' }}>🎓 {u.username}</span>
-              <button onClick={() => eliminarUsuario(u.id, 'teacher')} style={{ background: '#FF5252', border: 'none', padding: '8px 15px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
+              <button onClick={() => eliminarUsuario(u.id, 'teacher')} className="btn-animate" style={{ background: '#FF5252', border: 'none', padding: '8px 15px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
                 🗑️ Eliminar
               </button>
             </li>
@@ -205,7 +205,7 @@ function AdminPanel() {
             onChange={e => setNuevoGrupo({...nuevoGrupo, profesor: e.target.value})}
             style={inputStyle}
           />
-          <button type="submit" style={{ ...buttonStyle, backgroundColor: '#4ECDC4' }}>Crear Salón</button>
+          <button type="submit" className="btn-animate" style={{ ...buttonStyle, backgroundColor: '#4ECDC4' }}>Crear Salón</button>
         </form>
       </div>
 
@@ -238,7 +238,7 @@ function AdminPanel() {
               ))}
             </select>
           </div>
-          <button type="submit" style={{ ...buttonStyle, backgroundColor: '#FF6B6B' }}>Registrar Alumno</button>
+          <button type="submit" className="btn-animate" style={{ ...buttonStyle, backgroundColor: '#FF6B6B' }}>Registrar Alumno</button>
         </form>
       </div>
 
@@ -248,7 +248,7 @@ function AdminPanel() {
           {alumnos.map(alumno => (
             <li key={alumno.id} className="admin-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', background: '#f9f9f9', padding: '10px', borderRadius: '8px' }}>
               <span style={{ color: '#555' }}><strong>{alumno.nombre_completo}</strong> ({alumno.edad} años)</span>
-              <button onClick={() => handleDelete(alumno.id)} style={{ background: '#FF5252', border: 'none', padding: '5px 10px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
+              <button onClick={() => handleDelete(alumno.id)} className="btn-animate" style={{ background: '#FF5252', border: 'none', padding: '5px 10px', color: 'white', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold' }}>
                 🗑️
               </button>
             </li>

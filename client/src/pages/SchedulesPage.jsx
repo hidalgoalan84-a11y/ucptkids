@@ -74,7 +74,7 @@ function SchedulesPage() {
                 onChange={e => setFile(e.target.files[0])}
                 style={{ padding: '10px' }}
               />
-              <button type="submit" style={{ background: '#4ECDC4', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>
+              <button type="submit" className="btn-animate" style={{ background: '#4ECDC4', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>
                 Subir Archivo
               </button>
             </form>
