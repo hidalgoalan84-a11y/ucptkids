@@ -436,10 +436,12 @@ app.delete('/api/students/:id', async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
-// Servir archivos de React
+// --- ARCHIVOS ESTÁTICOS (REACT) ---
+// CRÍTICO: Colocar esto DESPUÉS de las rutas de API para no bloquearlas
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// Manejo de rutas para SPA (Single Page Application)
+// --- CATCH-ALL (MANEJO DE SPA) ---
+// CRÍTICO: Debe ser la ÚLTIMA ruta para redirigir todo lo no encontrado al index.html
 app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
