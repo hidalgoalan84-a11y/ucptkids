@@ -440,7 +440,7 @@ app.delete('/api/students/:id', async (req, res) => {
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Manejo de rutas para SPA (Single Page Application)
-app.get('*', (req, res) => {
+app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
