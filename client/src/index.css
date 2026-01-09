@@ -1,29 +1,29 @@
+/* 1. Importamos la fuente Nunito desde Google */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+
+/* 2. Activamos Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* --- Aquí abajo dejamos tus estilos por si acaso, pero Tailwind manda --- */
-
+/* 3. Estilos globales base */
 :root {
-  font-family: 'Nunito', system-ui, Avenir, Helvetica, Arial, sans-serif; /* Agregué Nunito aquí también */
+  font-family: 'Nunito', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  
+  /* Evita el scroll horizontal indeseado (lo "cortado") */
+  overflow-x: hidden; 
 }
 
-/* El resto lo puedes dejar o borrar, Tailwind se encargará del diseño principal */
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  background-color: #f3f4f6; /* Un gris muy suave de fondo profesional */
+  color: #1f2937; /* Texto gris oscuro, mejor que negro puro */
+}
+
+/* Opcional: Para que las animaciones de framer-motion sean suaves */
+html {
+  scroll-behavior: smooth;
 }
