@@ -1,14 +1,16 @@
 {
+  "name": "ucpt-kids-root",
+  "version": "1.0.0",
   "scripts": {
     "start": "node server/index.js",
     "build": "cd client && npm install && npm run build"
   },
   "dependencies": {
-    "express": "^4.19.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "pg": "^8.16.3",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
     "multer": "^1.4.5-lts.1",
-    "node-cron": "^3.0.3"
+    "node-cron": "^4.2.1",
+    "pg": "^8.16.3"
   }
 }
