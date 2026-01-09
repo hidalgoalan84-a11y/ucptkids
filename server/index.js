@@ -440,11 +440,7 @@ app.delete('/api/students/:id', async (req, res) => {
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Manejo de rutas para SPA (Single Page Application)
-app.get(/.*/, (req, res) => {    
-    // Agregamos headers para prevenir el caché del index.html
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
