@@ -1,29 +1,50 @@
-/* 1. Importamos la fuente Nunito desde Google */
+/* 1. Fuente Nunito */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
 
-/* 2. Activamos Tailwind */
+/* 2. Directivas de Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 3. Estilos globales base */
-:root {
-  font-family: 'Nunito', sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* 3. Capa Base (Mejor práctica en Tailwind) */
+@layer base {
+  html {
+    font-family: 'Nunito', sans-serif;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent; /* Elimina el flash azul al tocar en móviles */
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-800 antialiased; 
+    /* antialiased hace que la fuente se vea más nítida */
+  }
   
-  /* Evita el scroll horizontal indeseado (lo "cortado") */
-  overflow-x: hidden; 
+  /* Hacemos que los títulos destaquen un poco más por defecto */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-gray-900;
+  }
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background-color: #f3f4f6; /* Un gris muy suave de fondo profesional */
-  color: #1f2937; /* Texto gris oscuro, mejor que negro puro */
+/* 4. Utilidades personalizadas (Scrollbar bonita) */
+@layer utilities {
+  /* Ocultar scrollbar pero permitir scroll (útil para tablas en móvil) */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
-/* Opcional: Para que las animaciones de framer-motion sean suaves */
-html {
-  scroll-behavior: smooth;
+/* Scrollbar global estilizada (opcional pero recomendada) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
 }
