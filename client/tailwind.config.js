@@ -6,13 +6,36 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        // Aquí recuperamos la fuente bonita que pusimos ayer
-        sans: ['Nunito', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-      },
-      // Esto ayuda con los colores si usaste personalizados
       colors: {
-        primary: '#4F46E5', // Un ejemplo, ajusta si tenías otros
+        // 🎨 Paleta de Colores Infantil Profesional
+        
+        // Color Primario (Turquesa vibrante - Botones principales)
+        primary: {
+          50: '#f0fdfa',
+          100: '#ccfbf1',
+          200: '#99f6e4',
+          300: '#5eead4',
+          400: '#2dd4bf',
+          500: '#14b8a6',
+          600: '#0d9488', // Este es el que usa el botón (bg-primary-600)
+          700: '#0f766e',
+          800: '#115e59',
+          900: '#134e4a',
+        },
+        
+        // Color de Acento (Rosa/Coral - Botones de acción o borrar)
+        accent: {
+          50: '#fff1f2',
+          100: '#ffe4e6',
+          500: '#f43f5e',
+          600: '#e11d48',
+        },
+        
+        // Color de Fondo (Crema suave para no cansar la vista)
+        surface: '#f8fafc', 
+      },
+      fontFamily: {
+        sans: ['Nunito', 'sans-serif'],
       }
     },
   },
