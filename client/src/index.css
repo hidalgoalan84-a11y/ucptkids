@@ -6,31 +6,42 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 3. Capa Base (Mejor práctica en Tailwind) */
+/* 3. Capa Base */
 @layer base {
   html {
     font-family: 'Nunito', sans-serif;
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
-    /* 🚨 ESTAS SON LAS LÍNEAS QUE FALTABAN PARA ARREGLAR EL CELULAR: */
+    
+    /* Configuración crítica para Móvil */
     overflow-x: hidden; 
     width: 100%;
   }
 
   body {
     @apply bg-slate-50 text-slate-800 antialiased;
-    /* También aseguramos el body */
     overflow-x: hidden;
     width: 100%;
     position: relative;
+    margin: 0;
+    padding: 0;
   }
   
+  /* 🛠️ AQUÍ ESTÁ LA SOLUCIÓN A LAS LÍNEAS REBELDES */
+  hr {
+    max-width: 100%;   /* Nunca pases del 100% del contenedor */
+    box-sizing: border-box; 
+    border-top-width: 1px; 
+    @apply border-gray-200; /* Color suave para que no destaquen tanto */
+  }
+
+  /* Títulos */
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold text-gray-900;
   }
 }
 
-/* 4. Utilidades personalizadas (Scrollbar bonita) */
+/* 4. Utilidades */
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -41,7 +52,6 @@
   }
 }
 
-/* Scrollbar global estilizada */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -52,7 +62,4 @@
 ::-webkit-scrollbar-thumb {
   @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
 }
-/* BORRAR ESTO AL TERMINAR DE ARREGLARLO */
-* {
-  outline: 1px solid red !important;
-}
+
