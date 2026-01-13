@@ -11,15 +11,20 @@
   html {
     font-family: 'Nunito', sans-serif;
     scroll-behavior: smooth;
-    -webkit-tap-highlight-color: transparent; /* Elimina el flash azul al tocar en móviles */
+    -webkit-tap-highlight-color: transparent;
+    /* 🚨 ESTAS SON LAS LÍNEAS QUE FALTABAN PARA ARREGLAR EL CELULAR: */
+    overflow-x: hidden; 
+    width: 100%;
   }
 
   body {
-    @apply bg-slate-50 text-slate-800 antialiased; 
-    /* antialiased hace que la fuente se vea más nítida */
+    @apply bg-slate-50 text-slate-800 antialiased;
+    /* También aseguramos el body */
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
   }
   
-  /* Hacemos que los títulos destaquen un poco más por defecto */
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold text-gray-900;
   }
@@ -27,7 +32,6 @@
 
 /* 4. Utilidades personalizadas (Scrollbar bonita) */
 @layer utilities {
-  /* Ocultar scrollbar pero permitir scroll (útil para tablas en móvil) */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -37,7 +41,7 @@
   }
 }
 
-/* Scrollbar global estilizada (opcional pero recomendada) */
+/* Scrollbar global estilizada */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
