@@ -63,3 +63,14 @@
   @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
 }
 
+/* FORZAR RESPONSIVIDAD TOTAL */
+div, section, footer, header {
+  max-width: 100vw !important;
+  box-sizing: border-box !important;
+}
+
+/* Si hay algo que se salga, lo cortamos visualmente */
+#root {
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
