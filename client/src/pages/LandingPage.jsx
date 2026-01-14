@@ -31,14 +31,23 @@ function LandingPage() {
   };
 
   return (
-    // 1. CORRECCIÓN: Padding responsivo (p-4 en móvil, p-6 en PC) y ancho máximo controlado
-    <div className="min-h-screen bg-surface flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden font-sans w-full max-w-[100vw]">
+    // 1. CONTENEDOR PADRE: relative + overflow-hidden + max-w-[100vw]
+    <div className="min-h-screen bg-surface flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden w-full max-w-[100vw] font-sans">
       
+      {/* 2. FONDOS (Blobs): 
+         - w-64 (256px) en móvil -> md:w-[600px] en PC
+         - pointer-events-none: Para que no estorben al click
+         - -z-10: Al fondo
+      */}
+      <div className="absolute -top-24 -right-24 md:-top-[20%] md:-right-[10%] w-64 h-64 md:w-[600px] md:h-[600px] bg-primary-100 rounded-full blur-3xl opacity-40 -z-10 pointer-events-none"></div>
+      <div className="absolute -bottom-24 -left-24 md:-bottom-[20%] md:-left-[10%] w-64 h-64 md:w-[500px] md:h-[500px] bg-accent-100 rounded-full blur-3xl opacity-40 -z-10 pointer-events-none"></div>
+
+      {/* 3. CONTENIDO: relative + z-10 para estar ENCIMA del fondo */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="w-full max-w-4xl z-10" // z-10 para asegurar que esté sobre el fondo
+        className="w-full max-w-4xl relative z-10" 
       >
         {/* HEADER CENTRAL */}
         <div className="text-center mb-8 md:mb-12 mt-4">
@@ -50,7 +59,7 @@ function LandingPage() {
             Bienvenido a <span className="text-primary-600">UCPT Kids</span>
           </motion.h1>
           <motion.p variants={itemVariants} className="text-lg md:text-xl text-gray-500 max-w-lg mx-auto">
-            La plataforma de gestión escolar más divertida y segura para nuestra comunidad.
+            La plataforma de gestión escolar más divertida y segura.
           </motion.p>
         </div>
 
@@ -64,7 +73,7 @@ function LandingPage() {
             </div>
             <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Soy Profesor</h3>
             <p className="text-gray-500 mb-6 md:mb-8 text-sm">
-              Accede al panel administrativo, gestiona grupos y pasa lista.
+              Accede al panel administrativo.
             </p>
             
             <div className="w-full space-y-3">
@@ -92,9 +101,9 @@ function LandingPage() {
             <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-50 rounded-2xl flex items-center justify-center text-accent-500 mb-4 md:mb-6">
               <Baby className="w-7 h-7 md:w-8 md:h-8" />
             </div>
-            <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Soy Padre / Madre</h3>
+            <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Soy Familia</h3>
             <p className="text-gray-500 mb-6 md:mb-8 text-sm">
-              Consulta las actividades de tus hijos y avisos importantes.
+              Consulta actividades y avisos.
             </p>
             
             <div className="w-full mt-auto">
@@ -102,7 +111,7 @@ function LandingPage() {
                 onClick={handleParentLogin}
                 className="w-full flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-white py-3.5 rounded-xl font-bold transition-all active:scale-95 shadow-lg shadow-accent-500/20 text-sm md:text-base"
               >
-                <Users className="w-5 h-5" /> Entrar como Familia <ArrowRight className="w-5 h-5" />
+                <Users className="w-5 h-5" /> Entrar
               </button>
             </div>
           </div>
@@ -112,7 +121,7 @@ function LandingPage() {
         {/* FOOTER */}
         <motion.div variants={itemVariants} className="mt-4 md:mt-12 text-center pb-6">
           <p className="text-gray-400 text-xs md:text-sm">
-            © 2024 UCPT Kids. ¿Necesitas ayuda? <a href="#" className="text-primary-600 hover:underline">Contáctanos</a>
+            © 2024 UCPT Kids.
           </p>
         </motion.div>
 
