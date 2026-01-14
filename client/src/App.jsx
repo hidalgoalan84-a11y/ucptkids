@@ -20,7 +20,6 @@ import ActivitiesGallery from './pages/ActivitiesGallery';
 import Footer from './components/Footer';
 
 // 🔒 COMPONENTE DE SEGURIDAD
-// Si no hay usuario en localStorage, redirige al Login.
 const ProtectedRoute = ({ children }) => {
   const user = JSON.parse(localStorage.getItem('user'));
   if (!user) {
@@ -32,11 +31,14 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <Router>
-      {/* Contenedor principal con Tailwind: Altura mínima 100vh para que el footer baje */}
-      <div className="flex flex-col min-h-screen bg-surface">
+      {/* 🚨 CORRECCIÓN FINAL DE PANTALLA:
+          w-full: Ancho 100%
+          max-w-[100vw]: Ancho máximo = ancho de la pantalla (viewport width)
+          overflow-x-hidden: CORTA cualquier cosa que se salga.
+      */}
+      <div className="flex flex-col min-h-screen bg-surface w-full max-w-[100vw] overflow-x-hidden">
         
-        {/* El contenido crece para llenar el espacio (flex-1) */}
-        <div className="flex-1">
+        <div className="flex-1 w-full">
           <Routes>
             {/* --- RUTAS PÚBLICAS --- */}
             <Route path="/" element={<LandingPage />} />
@@ -78,12 +80,11 @@ function App() {
               <ProtectedRoute><AdminAttendance /></ProtectedRoute>
             } />
 
-            {/* Redirección para rutas desconocidas (404) */}
+            {/* Redirección 404 */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
 
-        {/* Footer siempre al final */}
         <Footer />
       </div>
     </Router>
