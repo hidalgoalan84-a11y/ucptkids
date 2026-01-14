@@ -330,7 +330,7 @@ function AdminPanel() {
                 {grupos.map(g => (
                   <div key={g.id} className="flex justify-between items-center text-sm p-2 hover:bg-gray-50 rounded-lg group">
                     <span className="text-gray-600">{g.nombre}</span>
-                    <button onClick={() => eliminarGrupo(g.id)} className="text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all">
+                    <button onClick={() => eliminarGrupo(g.id)} className="text-gray-400 hover:text-red-500 transition-colors p-1" title="Eliminar Grupo">
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
