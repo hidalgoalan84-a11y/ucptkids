@@ -12,6 +12,7 @@
     font-family: 'Nunito', sans-serif;
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%; /* Evita que el texto cambie de tamaño al girar */
     
     /* Configuración crítica para Móvil */
     overflow-x: hidden; 
