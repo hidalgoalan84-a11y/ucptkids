@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 // Páginas Públicas
 import LandingPage from './pages/LandingPage';
@@ -29,6 +30,18 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
+  useEffect(() => {
+    // 📱 FIX CRÍTICO PARA MÓVILES: Inyectar meta viewport si falta o es incorrecto
+    // Esto obliga al navegador a usar la escala 1:1 real y evita que se vea "lejos" o pequeño.
+    let meta = document.querySelector("meta[name='viewport']");
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'viewport';
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+  }, []);
+
   return (
     <Router>
       {/* 🚨 CORRECCIÓN FINAL DE PANTALLA:
