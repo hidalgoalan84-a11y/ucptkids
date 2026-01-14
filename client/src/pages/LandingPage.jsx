@@ -34,13 +34,6 @@ function LandingPage() {
     // 1. CORRECCIÓN: Padding responsivo (p-4 en móvil, p-6 en PC) y ancho máximo controlado
     <div className="min-h-screen bg-surface flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden font-sans w-full max-w-[100vw]">
       
-      {/* 2. CORRECCIÓN DE FONDO: 
-         Antes: w-[600px] (Muy grande para móvil)
-         Ahora: w-64 (256px en móvil) -> md:w-[600px] (Grande solo en PC)
-      */}
-      <div className="absolute top-[-10%] right-[-10%] w-64 h-64 md:w-[600px] md:h-[600px] bg-primary-100 rounded-full blur-3xl opacity-40 -z-10"></div>
-      <div className="absolute bottom-[-10%] left-[-10%] w-64 h-64 md:w-[500px] md:h-[500px] bg-accent-100 rounded-full blur-3xl opacity-40 -z-10"></div>
-
       <motion.div 
         variants={containerVariants}
         initial="hidden"
