@@ -75,3 +75,26 @@ div, section, footer, header {
   overflow-x: hidden !important;
   width: 100% !important;
 }
+
+/* --- BLOQUEO DE SELECCIÓN DE TEXTO (Anti-Copia) --- */
+
+/* 1. Desactivar selección en toda la app */
+body {
+  -webkit-user-select: none; /* Para Chrome, Safari y Móviles */
+  -moz-user-select: none;    /* Para Firefox */
+  -ms-user-select: none;     /* Para Internet Explorer/Edge */
+  user-select: none;         /* Estándar */
+  
+  /* Opcional: Evita que aparezca el menú contextual al dejar presionado en móviles */
+  -webkit-touch-callout: none; 
+}
+
+/* 2. IMPORTANTE: Permitir selección SOLO en inputs y áreas de texto */
+/* Si no pones esto, la gente se enojará mucho al llenar formularios */
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+  cursor: text; /* Mantiene el cursor de "escribir" */
+}
