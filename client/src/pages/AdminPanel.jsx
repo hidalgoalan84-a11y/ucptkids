@@ -10,19 +10,25 @@ import {
   ShieldAlert,
   ClipboardList,
   PlusCircle,
-  GraduationCap
+  GraduationCap,
+  Megaphone, // Agregado
+  Send       // Agregado
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 function AdminPanel() {
-  // --- LÓGICA DE ESTADO ORIGINAL (INTACTA) ---
+  // --- ESTADOS ---
   const [grupos, setGrupos] = useState([]);
   const [alumnos, setAlumnos] = useState([]);
   const [pendingUsers, setPendingUsers] = useState([]);
   const [teachers, setTeachers] = useState([]);
   
+  // Estado para formularios
   const [nuevoGrupo, setNuevoGrupo] = useState({ nombre: '', horario: '', profesor: '' });
   const [nuevoAlumno, setNuevoAlumno] = useState({ nombre: '', edad: '', grupo_id: '' });
+  
+  // Estado para Anuncios
+  const [announcement, setAnnouncement] = useState({ title: '', message: '' });
 
   useEffect(() => {
     cargarGrupos();
@@ -31,6 +37,7 @@ function AdminPanel() {
     cargarTeachers();
   }, []);
 
+  // --- CARGA DE DATOS ---
   const cargarGrupos = async () => {
     try {
       const respuesta = await fetch('/api/groups');
@@ -63,44 +70,36 @@ function AdminPanel() {
     } catch (e) { console.error(e); }
   };
 
+  // --- ACCIONES USUARIOS ---
   const aprobarUsuario = async (id) => {
     await fetch(`/api/users/approve/${id}`, { method: 'POST' });
-    alert("Usuario aprobado. Ahora es Teacher."); // Sugerencia: Usar un toast en el futuro
+    alert("Usuario aprobado. Ahora es Teacher.");
     cargarPendientes();
-    cargarTeachers(); // Recargar lista de profesores también
+    cargarTeachers();
   };
 
   const eliminarUsuario = async (id, tipo) => {
-    if (!confirm("⚠️ ¿Estás seguro de que quieres eliminar a este usuario permanentemente?")) return;
-
+    if (!confirm("⚠️ ¿Estás seguro de eliminar este usuario?")) return;
     const res = await fetch(`/api/users/${id}`, { method: 'DELETE' });
     if (res.ok) {
       if (tipo === 'pending') cargarPendientes();
       if (tipo === 'teacher') cargarTeachers();
     } else {
-      const data = await res.json();
-      alert(data.error || "Error al eliminar");
+      alert("Error al eliminar");
     }
   };
 
+  // --- ACCIONES DATOS ---
   const handleDelete = async (id) => {
-    if (!confirm("⚠️ ¿Estás seguro de eliminar este alumno?")) return;
-    try {
-      const res = await fetch(`/api/students/${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        cargarAlumnos();
-      } else { alert("Error al eliminar alumno"); }
-    } catch (e) { console.error(e); alert("Error de conexión"); }
+    if (!confirm("⚠️ ¿Eliminar alumno?")) return;
+    const res = await fetch(`/api/students/${id}`, { method: 'DELETE' });
+    if (res.ok) cargarAlumnos();
   };
 
   const eliminarGrupo = async (id) => {
-    if (!confirm("⚠️ ¿Estás seguro de eliminar este grupo? Se borrarán todos sus alumnos y asignaciones.")) return;
-    try {
-      const res = await fetch(`/api/groups/${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        cargarGrupos();
-      } else { alert("Error al eliminar grupo"); }
-    } catch (e) { console.error(e); }
+    if (!confirm("⚠️ ¿Eliminar grupo y sus alumnos?")) return;
+    const res = await fetch(`/api/groups/${id}`, { method: 'DELETE' });
+    if (res.ok) cargarGrupos();
   };
 
   const crearGrupo = async (e) => {
@@ -117,8 +116,7 @@ function AdminPanel() {
 
   const crearAlumno = async (e) => {
     e.preventDefault();
-    if(!nuevoAlumno.grupo_id) return alert("Selecciona un grupo primero");
-
+    if(!nuevoAlumno.grupo_id) return alert("Selecciona un grupo");
     await fetch('/api/students', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -134,9 +132,33 @@ function AdminPanel() {
     alert("¡Alumno registrado!");
   };
 
-  // --- UI COMPONENTS ---
+  // --- LÓGICA DE ANUNCIOS (MEGÁFONO) ---
+  const handlePostAnnouncement = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/announcement', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(announcement)
+      });
+      
+      if (response.ok) {
+        alert('¡Aviso publicado! (El anterior fue eliminado)');
+        setAnnouncement({ title: '', message: '' });
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Error al publicar');
+    }
+  };
 
-  // Componente para Títulos de Sección
+  const handleDeleteAnnouncement = async () => {
+    if(!confirm("¿Borrar el aviso actual?")) return;
+    await fetch('/api/announcement', { method: 'DELETE' });
+    alert("Aviso eliminado.");
+  };
+
+  // --- UI COMPONENTS ---
   const SectionTitle = ({ icon: Icon, title, count, color }) => (
     <div className="flex items-center gap-3 mb-6 pb-2 border-b border-gray-100">
       <div className={`p-2 rounded-lg ${color} bg-opacity-10 text-${color.split('-')[1]}-600`}>
@@ -152,14 +174,14 @@ function AdminPanel() {
   return (
     <div className="min-h-screen bg-surface font-sans p-6 lg:p-10">
       
-      {/* 1. HEADER */}
+      {/* HEADER */}
       <div className="max-w-7xl mx-auto mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <Link to="/dashboard" className="inline-flex items-center gap-2 text-gray-500 hover:text-primary-600 transition-colors mb-2 font-medium text-sm">
             <ArrowLeft className="w-4 h-4" /> Volver al Dashboard
           </Link>
           <h1 className="text-3xl font-bold text-gray-900">Panel de Administración</h1>
-          <p className="text-gray-500">Gestiona usuarios, grupos y alumnos desde un solo lugar.</p>
+          <p className="text-gray-500">Gestiona usuarios, grupos y alumnos.</p>
         </div>
         
         <Link 
@@ -173,10 +195,46 @@ function AdminPanel() {
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-3 gap-8">
         
-        {/* COLUMNA IZQUIERDA (2/3): Listados */}
+        {/* COLUMNA IZQUIERDA (2/3) */}
         <div className="xl:col-span-2 space-y-8">
+
+          {/* 1. SECCIÓN DE PUBLICAR AVISO (AQUÍ FALTABA EL HTML) */}
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-orange-100">
+            <div className="flex items-center gap-3 mb-4 text-orange-600">
+              <Megaphone />
+              <h2 className="text-xl font-bold">Publicar Aviso General</h2>
+            </div>
+            
+            <form onSubmit={handlePostAnnouncement} className="space-y-4">
+              <input 
+                type="text" 
+                placeholder="Título (Ej: Suspensión de clases)" 
+                className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-orange-200 outline-none"
+                value={announcement.title}
+                onChange={e => setAnnouncement({...announcement, title: e.target.value})}
+                required
+              />
+              <textarea 
+                placeholder="Escribe el mensaje aquí..." 
+                className="w-full p-3 border rounded-xl h-24 focus:ring-2 focus:ring-orange-200 outline-none resize-none"
+                value={announcement.message}
+                onChange={e => setAnnouncement({...announcement, message: e.target.value})}
+                required
+              />
+              
+              <div className="flex gap-3">
+                <button type="submit" className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg font-bold flex justify-center items-center gap-2 transition-colors">
+                  <Send size={18} /> Publicar Aviso
+                </button>
+                <button type="button" onClick={handleDeleteAnnouncement} className="bg-red-50 text-red-600 px-4 rounded-lg hover:bg-red-100 border border-red-200 transition-colors" title="Borrar aviso vigente">
+                  <Trash2 size={18} />
+                </button>
+              </div>
+              <p className="text-xs text-gray-400 text-center mt-2">Nota: Al publicar, se borrará automáticamente cualquier aviso anterior.</p>
+            </form>
+          </div>
           
-          {/* A. SOLICITUDES DE ACCESO */}
+          {/* 2. SOLICITUDES DE ACCESO */}
           {pendingUsers.length > 0 && (
             <motion.div 
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -188,7 +246,6 @@ function AdminPanel() {
                 </h3>
                 <span className="bg-yellow-200 text-yellow-800 text-xs font-bold px-3 py-1 rounded-full">{pendingUsers.length} nuevas</span>
               </div>
-              
               <div className="grid gap-3">
                 {pendingUsers.map(u => (
                   <div key={u.id} className="bg-white p-4 rounded-xl flex items-center justify-between shadow-sm">
@@ -200,10 +257,10 @@ function AdminPanel() {
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      <button onClick={() => aprobarUsuario(u.id)} className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200 transition-colors" title="Aprobar">
+                      <button onClick={() => aprobarUsuario(u.id)} className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200 transition-colors">
                         <CheckCircle className="w-5 h-5" />
                       </button>
-                      <button onClick={() => eliminarUsuario(u.id, 'pending')} className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors" title="Rechazar">
+                      <button onClick={() => eliminarUsuario(u.id, 'pending')} className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors">
                         <Trash2 className="w-5 h-5" />
                       </button>
                     </div>
@@ -213,10 +270,9 @@ function AdminPanel() {
             </motion.div>
           )}
 
-          {/* B. LISTA DE PROFESORES */}
+          {/* 3. LISTA DE PROFESORES */}
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
             <SectionTitle icon={GraduationCap} title="Equipo Docente" count={teachers.length} color="bg-blue-100" />
-            
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
@@ -235,10 +291,7 @@ function AdminPanel() {
                         <span className="font-medium text-gray-700">{t.username}</span>
                       </td>
                       <td className="py-3 text-right">
-                        <button 
-                          onClick={() => eliminarUsuario(t.id, 'teacher')}
-                          className="text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
-                        >
+                        <button onClick={() => eliminarUsuario(t.id, 'teacher')} className="text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </td>
@@ -252,10 +305,9 @@ function AdminPanel() {
             </div>
           </div>
 
-          {/* C. LISTA DE ALUMNOS */}
+          {/* 4. LISTA DE ALUMNOS */}
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
             <SectionTitle icon={Users} title="Directorio de Alumnos" count={alumnos.length} color="bg-green-100" />
-            
             <div className="overflow-x-auto max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
               <table className="w-full text-left border-collapse">
                 <thead className="sticky top-0 bg-white z-10">
@@ -271,10 +323,7 @@ function AdminPanel() {
                       <td className="py-3 font-medium text-gray-700">{a.nombre_completo}</td>
                       <td className="py-3 text-gray-500 text-sm">{a.edad} años</td>
                       <td className="py-3 text-right">
-                        <button 
-                          onClick={() => handleDelete(a.id)}
-                          className="text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
-                        >
+                        <button onClick={() => handleDelete(a.id)} className="text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </td>
@@ -290,10 +339,10 @@ function AdminPanel() {
 
         </div>
 
-        {/* COLUMNA DERECHA (1/3): Acciones de Creación */}
+        {/* COLUMNA DERECHA (1/3) */}
         <div className="space-y-8">
           
-          {/* 1. CREAR GRUPO */}
+          {/* CREAR GRUPO */}
           <div className="bg-white rounded-2xl p-6 shadow-lg shadow-purple-500/5 border border-purple-100">
             <SectionTitle icon={School} title="Nuevo Salón" color="bg-purple-100" />
             <form onSubmit={crearGrupo} className="space-y-4">
@@ -323,7 +372,6 @@ function AdminPanel() {
               </button>
             </form>
 
-            {/* Mini lista de grupos para borrar */}
             <div className="mt-6 pt-6 border-t border-gray-100">
               <p className="text-xs font-bold text-gray-400 uppercase mb-3">Salones Existentes</p>
               <div className="space-y-2">
@@ -339,7 +387,7 @@ function AdminPanel() {
             </div>
           </div>
 
-          {/* 2. CREAR ALUMNO */}
+          {/* CREAR ALUMNO */}
           <div className="bg-white rounded-2xl p-6 shadow-lg shadow-pink-500/5 border border-pink-100">
             <SectionTitle icon={UserPlus} title="Inscribir Alumno" color="bg-pink-100" />
             <form onSubmit={crearAlumno} className="space-y-4">
