@@ -11,8 +11,8 @@ import {
   ClipboardList,
   PlusCircle,
   GraduationCap,
-  Megaphone, // Agregado
-  Send       // Agregado
+  Megaphone, 
+  Send       
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -114,9 +114,14 @@ function AdminPanel() {
     alert("¡Grupo creado!");
   };
 
+  // --- CREAR ALUMNO CON AVATAR MÁGICO ---
   const crearAlumno = async (e) => {
     e.preventDefault();
-    if(!nuevoAlumno.grupo_id) return alert("Selecciona un grupo");
+    if(!nuevoAlumno.grupo_id) return alert("Selecciona un grupo primero");
+
+    // Generamos el link del avatar basado en el nombre
+    const avatarUrl = `https://api.dicebear.com/7.x/adventurer/svg?seed=${nuevoAlumno.nombre}&backgroundColor=b6e3f4,c0aede,d1d4f9`;
+
     await fetch('/api/students', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -124,12 +129,12 @@ function AdminPanel() {
         nombre_completo: nuevoAlumno.nombre,
         edad: nuevoAlumno.edad,
         grupo_id: nuevoAlumno.grupo_id,
-        foto_perfil: 'https://via.placeholder.com/150' 
+        foto_perfil: avatarUrl // Guardamos el avatar generado
       })
     });
     setNuevoAlumno({ nombre: '', edad: '', grupo_id: '' });
     cargarAlumnos();
-    alert("¡Alumno registrado!");
+    alert("¡Alumno registrado con Avatar!");
   };
 
   // --- LÓGICA DE ANUNCIOS (MEGÁFONO) ---
@@ -198,7 +203,7 @@ function AdminPanel() {
         {/* COLUMNA IZQUIERDA (2/3) */}
         <div className="xl:col-span-2 space-y-8">
 
-          {/* 1. SECCIÓN DE PUBLICAR AVISO (AQUÍ FALTABA EL HTML) */}
+          {/* 1. SECCIÓN DE PUBLICAR AVISO */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-orange-100">
             <div className="flex items-center gap-3 mb-4 text-orange-600">
               <Megaphone />
@@ -320,7 +325,15 @@ function AdminPanel() {
                 <tbody>
                   {alumnos.map(a => (
                     <tr key={a.id} className="group hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0">
-                      <td className="py-3 font-medium text-gray-700">{a.nombre_completo}</td>
+                      <td className="py-3 flex items-center gap-3">
+                        {/* Avatar Pequeño en la tabla */}
+                        <img 
+                          src={a.foto_perfil || 'https://via.placeholder.com/40'} 
+                          alt="Avatar" 
+                          className="w-8 h-8 rounded-full bg-gray-100"
+                        />
+                        <span className="font-medium text-gray-700">{a.nombre_completo}</span>
+                      </td>
                       <td className="py-3 text-gray-500 text-sm">{a.edad} años</td>
                       <td className="py-3 text-right">
                         <button onClick={() => handleDelete(a.id)} className="text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
@@ -387,9 +400,26 @@ function AdminPanel() {
             </div>
           </div>
 
-          {/* CREAR ALUMNO */}
+          {/* CREAR ALUMNO (CON VISTA PREVIA) */}
           <div className="bg-white rounded-2xl p-6 shadow-lg shadow-pink-500/5 border border-pink-100">
             <SectionTitle icon={UserPlus} title="Inscribir Alumno" color="bg-pink-100" />
+            
+            {/* VISTA PREVIA AVATAR */}
+            <div className="flex justify-center mb-6">
+              <div className="relative">
+                <img 
+                  src={`https://api.dicebear.com/7.x/adventurer/svg?seed=${nuevoAlumno.nombre || 'placeholder'}&backgroundColor=b6e3f4,c0aede,d1d4f9`}
+                  alt="Avatar Preview" 
+                  className="w-24 h-24 rounded-full border-4 border-white shadow-md bg-gray-50 transition-all duration-300"
+                />
+                {!nuevoAlumno.nombre && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/5 rounded-full backdrop-blur-[1px]">
+                    <span className="text-xs font-bold text-gray-500 bg-white px-2 py-1 rounded-md shadow-sm">Nombre...</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
             <form onSubmit={crearAlumno} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Nombre Completo</label>
